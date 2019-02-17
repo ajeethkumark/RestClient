@@ -30,6 +30,7 @@ public class CustomMediaType implements MessageBodyWriter<Date>{
 			MultivaluedMap<String, Object> httpHeaders, OutputStream entityStream)
 			throws IOException, WebApplicationException {
 		// TODO Auto-generated method stub
+		
 		String shortData = t.getDate()+"..."+t.getMonth()+".."+t.getYear();
 		entityStream.write(shortData.getBytes());
 		

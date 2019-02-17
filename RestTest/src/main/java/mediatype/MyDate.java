@@ -14,7 +14,7 @@ public class MyDate {
 	@Produces("datemedia/test")
 	public Date getDate()
 	{
-		System.out.println("Enter into mydate");
+		System.out.println("Enter into mydate,,,");
 		return Calendar.getInstance().getTime();
 		
 	}
