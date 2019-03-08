@@ -1,5 +1,6 @@
 package com.ajeeth;
 
+import java.net.URI;
 import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
@@ -12,11 +13,15 @@ import javax.ws.rs.PUT;
 import javax.ws.rs.Path;
 import javax.ws.rs.PathParam;
 import javax.ws.rs.Produces;
+import javax.ws.rs.core.Context;
 import javax.ws.rs.core.MediaType;
+import javax.ws.rs.core.Response;
+import javax.ws.rs.core.Response.Status;
+import javax.ws.rs.core.UriInfo;
 import javax.xml.bind.annotation.XmlElement;
 import javax.xml.bind.annotation.XmlRootElement;
 
-import com.exception.ExceptionFound;
+
 import com.repository.Repository;
 
 @Path("/return")
@@ -52,15 +57,17 @@ public class ReturnObjectTest {
 	@POST
 	@Path("/setdata")
 	@Consumes({MediaType.APPLICATION_XML,MediaType.APPLICATION_JSON})
-	public List<DataClass> setData(List<DataClass> dc)
+	@Produces({MediaType.APPLICATION_XML,MediaType.APPLICATION_JSON})
+	public Response setData(DataClass dc,@Context UriInfo uriInfo)
 	{
 		try
 		{
-		System.out.println("post method called");
+		/*System.out.println("post method called");
 		new Repository().createData(dc);
 		System.out.println(dc.size());
-		System.out.println("post method called over");
+		System.out.println("post method called over");*/
 		//@Consumes({MediaType.APPLICATION_XML,MediaType.APPLICATION_JSON})
+		return Response.created(uriInfo.getAbsolutePath()).entity(new Repository().createData(dc)).build();
 		}
 		catch(Exception e)
 		{
@@ -68,7 +75,8 @@ public class ReturnObjectTest {
 			e.printStackTrace();
 		}
 
-		return dc;
+		//return dc;
+		return null;
 	}
 	
 	
@@ -106,6 +114,16 @@ public class ReturnObjectTest {
 			new Repository().deleteData(id);
 		}
 		return new Repository().getData();
+	}
+	
+	@GET
+	@Path("/subpath")
+	public SubResourceImplementation test()
+	{
+		System.out.println("entering to test method");
+		//sub folder implementation not working
+		return new SubResourceImplementation();
+		//return "test";
 	}
 
 }

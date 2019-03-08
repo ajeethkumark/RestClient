@@ -127,17 +127,18 @@ public class Repository {
 		return null;
 	}
 
-	public void createData(List<DataClass> dc) {
+	public DataClass createData(DataClass dc) {
 		// TODO Auto-generated method stub
 		try
 		{
 			System.out.println("Enter into create data");
 			String insertQuery="insert into rest values(?,?)";
 			PreparedStatement st=con.prepareStatement(insertQuery);
-			for(int dataClassIndex=0;dataClassIndex<dc.size();dataClassIndex++)
+			//for(int dataClassIndex=0;dataClassIndex<dc.size();dataClassIndex++)
 			{
 				//dataList.add(dc);
-				DataClass dataClass=dc.get(dataClassIndex);
+				//DataClass dataClass1=dc.get(dataClassIndex);
+				DataClass dataClass=dc;
 				
 				
 				st.setInt(1,dataClass.getValue());
@@ -150,6 +151,7 @@ public class Repository {
 			System.out.println("Error in create data");
 			e.printStackTrace();
 		}
+		return dc;
 		
 	}
 
